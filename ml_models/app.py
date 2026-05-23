@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
@@ -7,18 +6,16 @@ import os
 
 app = Flask(__name__)
 
-# Download models from Google Drive
 def download_models():
-    if not os.path.exists("earthquake_model.pkl"):
-        gdown.download("https://drive.google.com/uc?id=1zGgZq7mO5QmqYg8QQvv7qd_4wfwZRZ-N", "earthquake_model.pkl", quiet=False)
-    if not os.path.exists("cyclone_model.pkl"):
-        gdown.download("https://drive.google.com/uc?id=1Ey170-XHSdf-r1jfRUYf9fAv8d2-R2Mk", "cyclone_model.pkl", quiet=False)
     if not os.path.exists("flood_model.pkl"):
-        gdown.download("https://drive.google.com/uc?id=1wcscT46u4pWVOi2TSF9BYqfoara-Oi_E", "flood_model.pkl", quiet=False)
+        gdown.download("https://drive.google.com/uc?id=1ABj6RBuKxPc9D-9Yb8XyZa76Z5cdDdxH", "flood_model.pkl", quiet=False)
+    if not os.path.exists("cyclone_model.pkl"):
+        gdown.download("https://drive.google.com/uc?id=1BeCXGYOAme_AihPBTyUiPB5vgEQQ7mEc", "cyclone_model.pkl", quiet=False)
+    if not os.path.exists("earthquake_model.pkl"):
+        gdown.download("https://drive.google.com/uc?id=1dBbC6vos1VG7HFQNANLBumGQGVg-4wyA", "earthquake_model.pkl", quiet=False)
 
 download_models()
 
-# Load models
 with open("earthquake_model.pkl", "rb") as f:
     earthquake_model = pickle.load(f)
 with open("flood_model.pkl", "rb") as f:
@@ -60,9 +57,12 @@ def predict_flood():
 @app.route("/predict/cyclone", methods=["POST"])
 def predict_cyclone():
     data = request.json
-    features = np.array([[data["pressure"], data["latitude"], data["longitude"]]])
+    features = np.array([[data["pressure"], data["category"],
+                          data["severity"], data["latitude"], data["longitude"]]])
     result = cyclone_model.predict(features)[0]
     return jsonify({"risk": int(result), "message": "High Risk" if result == 1 else "Low Risk"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=False)
+    
