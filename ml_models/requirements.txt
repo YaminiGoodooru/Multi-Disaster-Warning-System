@@ -1,0 +1,5 @@
+flask
+scikit-learn==1.6.1
+numpy
+gdown
+gunicorn
