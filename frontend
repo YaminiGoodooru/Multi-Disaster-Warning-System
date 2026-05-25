@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Disaster Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🌍 Disaster Management System</h1>
+</header>
+
+<nav>
+    <a href="#">Dashboard</a>
+    <a href="#">Live Data</a>
+    <a href="#">Alerts</a>
+    <a href="#">Notifications</a>
+</nav>
+
+<div class="container">
+
+    <!-- Live Data Section -->
+    <div class="card">
+        <h2>📊 Live Disaster Data</h2>
+        <p><strong>Type:</strong> Earthquake</p>
+        <p><strong>Magnitude:</strong> 6.5</p>
+        <p><strong>Location:</strong> Andhra Pradesh</p>
+    </div>
+
+    <!-- ML Result Section -->
+    <div class="card">
+        <h2>🤖 ML Analysis</h2>
+        <p><strong>Risk Level:</strong> <span class="high">High</span></p>
+        <p><strong>Probability:</strong> 85%</p>
+        <p><strong>Affected Area:</strong> Visakhapatnam</p>
+    </div>
+
+    <!-- Alerts Section -->
+    <div class="card">
+        <h2>🚨 Alerts</h2>
+        <p>⚠️ High risk of earthquake detected. Stay indoors and avoid buildings.</p>
+    </div>
+
+    <!-- Notifications Section -->
+    <div class="card">
+        <h2>📩 Notifications</h2>
+        <ul>
+            <li>SMS sent to affected users</li>
+            <li>Email alerts delivered</li>
+            <li>Push notification sent</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <p> 2026 Disaster Management System</p>
+</footer>
+
+</body>
+</html>
