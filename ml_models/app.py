@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import gdown
 import os
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -46,13 +47,28 @@ def predict_flood():
 
 @app.route("/predict/cyclone", methods=["POST"])
 def predict_cyclone():
-    model = get_model("cyclone_model.pkl", "1BeCXGYOAme_AihPBTyUiPB5vgEQQ7mEc")
-    data = request.json
-    features = np.array([[data["pressure"], data["category"],
-                          data["severity"], data["latitude"], data["longitude"]]])
-    result = model.predict(features)[0]
-    return jsonify({"risk": int(result), "message": "High Risk" if result == 1 else "Low Risk"})
+    try:
+        model = get_model(
+            "cyclone_model.pkl",
+            "1BeCXGYOAme_AihPBTyUiPB5vgEQQ7mEc"
+        )
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=False)
+        data = request.json
+
+        features = pd.DataFrame([{
+            "pressure": data["pressure"],
+            "category": data["category"],
+            "severity": data["severity"],
+            "latitude": data["latitude"],
+            "longitude": data["longitude"]
+        }])
+
+        result = model.predict(features)[0]
+
+        return jsonify({
+            "risk": int(result),
+            "message": "High Risk" if result == 1 else "Low Risk"
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
