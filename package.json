@@ -1,0 +1,1 @@
+{"name":"echodisaster-backend","version":"1.0.0","description":"EchoDisaster Backend","main":"server.js","type":"commonjs","scripts":{"start":"node server.js"},"dependencies":{"axios":"^1.7.2","cors":"^2.8.5","dotenv":"^16.4.5","express":"^4.19.2","mongoose":"^8.5.1","nodemailer":"^8.0.8","resend":"^3.4.0","xml2js":"^0.6.2"}}
